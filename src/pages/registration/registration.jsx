@@ -5,6 +5,7 @@ import { Header, Footer } from '../../components'
  * Компонент для отображения страницы регистрации
  */
 export function Registration(){
+    //TODO Доделать регистрацию по аналогии с авторизацией
     return (
         <div>
             <Header />

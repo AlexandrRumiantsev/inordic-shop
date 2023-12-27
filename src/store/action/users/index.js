@@ -29,4 +29,21 @@ export function createExtraActions() {
         );
       }   
 
+      function addItemUser() {
+        return createAsyncThunk(
+          'ADD_ITEM_USER',
+            //response ответ от сервера
+            async (form) => {
+                let response = await fetch('http://localhost:3000/user/add', {
+                    method: 'POST',
+                    body: new FormData(form)
+                }).then( 
+                    // после того как произойдет запрос, он преобразуется к json массиву
+                    (response) => response.json()
+                )
+                return response[0]
+            }
+        );
+      } 
+
 }

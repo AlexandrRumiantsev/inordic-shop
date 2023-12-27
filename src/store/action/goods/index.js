@@ -8,6 +8,7 @@ export function createExtraActions() {
     // Возвращаем объект функций
     return {
         getAllGoods: getAllGoods(),
+        getItemGoods: getItemGoods(),
         addToBasket: addToBasket,
     };    
 
@@ -38,7 +39,22 @@ export function createExtraActions() {
                 return response
             }
         );
-      }   
+      } 
+      
+      function getItemGoods() {
+        return createAsyncThunk(
+          'GET_ITEM_GOOD',
+            //response ответ от сервера
+            async (id) => {
+                console.log('id', id)
+                const response = await fetch(`http://localhost:3000/good/get/${id}`).then( 
+                    // после того как произойдет запрос, он преобразуется к json массиву
+                    (response) => response.json()
+                )
+                return response
+            }
+        );
+      }
 
 
     // Действие, которое добавляет товар в корзину

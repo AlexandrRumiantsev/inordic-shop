@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { createExtraActions } from '../../action/goods'
 
-const { getAllGoods } = createExtraActions()
+const { getAllGoods, getItemGoods } = createExtraActions()
 
 // Создадим объект слайса 
 export const slice = createSlice(
@@ -12,7 +12,9 @@ export const slice = createSlice(
        // Состояние слайса по умолчанию
        initialState: {
           list: [],
-          item: null,
+          item: {
+            loading: true
+          },
           basket: [],
        },
        extraReducers: (builder) => {
@@ -40,6 +42,13 @@ export const slice = createSlice(
          // Запрос не завершился успешно
          builder.addCase(getAllGoods.rejected, (state, action) => {
             console.log('Запросв состоянии rejected')
+         })
+
+         builder.addCase(getItemGoods.fulfilled, (state, action) => {
+            console.log('Запросв состоянии fulfilled', action)
+            const { payload } = action
+            // Заполним стейт
+            state.item = payload[0]
          })
 
         // Кейс для добавления товара в корзину
